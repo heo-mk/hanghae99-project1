@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <!-- Webpage Title -->
+    <title>공유문화 | 전시 공연 정보 길잡이</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- og정보 -->
+    <meta property="og:title" content="공유문화 | 전시 공연 정보 길잡이" />
+    <meta property="og:description" content="공유와 함께 하는 전시공연 정보" />
+    <meta property="og:image" content="{{ url_for('static', filename='ogimage_main.jpg') }} " />
+    
+    <!-- JS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    
+    <!-- 구글폰트 -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- <script defer type="text/javascript" src="{{url_for('static', filename='login.js')}}"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script
+        src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+        crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script defer>
+        $(document).ready(function(){
+            if (!!$.cookie('mytoken')) {
+                $('#logIn_btn').hide()
+                $('#logOut_btn').show()
+            } else {
+                $('#logIn_btn').show()
+                $('#logOut_btn').hide()
+            }
+        })
+
+        function openclose_introduce() {
+            let status = $('#intro-box').css('display');
+            if (status == 'block') {
+                $('#intro-box').hide()
+            } else {
+                $('#intro-box').show()
+            }
+        }
+        function openclose_signUp(){
+            let status = $('#sign_box').css('display');
+            if (status == 'block') {
+                $('#sign_box').hide()
+            } else {
+                $('#sign_box').show()
+            }
+        }
+        function openclose_login(){
+            let status = $('#login_box').css('display');
+            if (status == 'block') {
+                $('#login_box').hide()
+            } else {
+                $('#login_box').show()
+            }
+        }
+        function sign_out() {
+            $.removeCookie('mytoken', {path: '/'});
+            alert('로그아웃 되었습니다.')
+            window.location.reload();
+        }
+
+        function hover1(element) {
+    element.setAttribute('src', '{{url_for('static', filename='kong2_text.jpg')}}');
+    }
+
+    function unhover1(element) {
+    element.setAttribute('src', '{{url_for('static', filename='kong2_notext.jpg')}}');
+    }
+
+    function hover2(element) {
+    element.setAttribute('src', '{{url_for('static', filename='kong1_text.jpg')}}');
+    }
+
+    function unhover2(element) {
+    element.setAttribute('src', '{{url_for('static', filename='kong1_notext.jpg')}}');
+    }
+
+    </script>
+</head>
+<body>
+    <div class="wrap">
+        <div class = "title_line">
+            <div class="nav_left">
+                <a href="{{ url_for('Home')}}">
+                    <img class="card-img-top"
+                    src="{{url_for('static', filename='share_culture.jpg')}}" alt="Card image cap" width="100px" height="100px">
+                </a>
+            </div>
+            <div class="nav_right">
+                <div class="signUp">
+                    <button href="#" class="signUp_btn btn" role="button" aria-pressed="true" onclick="openclose_signUp()">회원가입</button>
+                </div>  
+                <div class="login" id="logIn_btn">
+                    <button href="#" class="login_btn btn" role="button" aria-pressed="true" onclick="openclose_login()">로그인</button>
+                </div>
+                <div class="logOut" id="logOut_btn">
+                    <button href="#" class="login_btn btn" role="button" aria-pressed="true" onclick="sign_out()">로그아웃</button>
+                </div>            
+            </div>
+        </div>
+        <div class="introduce">
+            <button onclick="openclose_introduce()" id="btn-introducing-box" class="introduce_btn btn" href="#" role="button">🐱‍🏍 사이트 소개</button>
+        </div>
+        <div class="introducing-box" id="intro-box" style="display: none;">
+            <p class="introducing-box-content">
+                <span><b>공유</b>가 소개하는 문화 체험 정보😍</span>
+                <span>관심 있는 <b>전시</b>와 <b>공연</b>을 놓치지 마세요!</span>
+                <span>로그인하고 <b>리뷰</b>를 작성하면 꿈에 공유가 나옵니다❤</span> 
+            </p>     
+        </div>
+        <div class="wrap_pics">
+            <div class="two_images">
+                <a class="two_images_artShow" href="{{ url_for('artShow')}}">
+                    <img class="card-img-bottom"
+                    src="{{url_for('static', filename='kong2_notext.jpg')}}"
+                    alt="Card image cap" onmouseover="hover1(this);" onmouseout="unhover1(this)">
+                </a>
+                
+            </div>
+            <div class="two_images">
+                <a class="two_images_performance" href="{{ url_for('performance')}}">
+                    <img class="card-img-bottom"
+                    src="{{url_for('static', filename='kong1_notext.jpg')}}"
+                    alt="Card image cap" onmouseover="hover2(this)" onmouseout="unhover2(this)">
+                </a>          
+            </div>
+        </div>   
+    </div>
+    {% include 'login.html' %}
+    {% include 'sign_up.html' %}
+</body>
+
+</html>
